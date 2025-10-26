@@ -1,0 +1,148 @@
+:root {
+    --main-bg: #ffffff;
+    --main-grey: #e7e7e7;
+    --main-black: #1f1f1f;
+    --main-pink: #f72585;
+    --main-dark-blue: #0c38a8;
+    --main-orange: #e89518;
+
+    --gradient: linear-gradient(to right, var(--main-pink), var(--main-dark-blue));
+
+    --dice-side-length: 130px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--main-bg);
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.main-header {
+    width: 100%;
+    font-family: "Leckerli One", verdana;
+    background-image: var(--gradient);
+    color: var(--main-bg);
+    padding: 40px 0px;
+    text-align: center;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.game-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-table{
+    padding: 70px 0px 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dices-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    max-width: 50dvw;
+}
+
+.dice {
+    position: relative;
+    padding: 20px;
+    border-radius: 25px;
+    min-width: var(--dice-side-length);
+    min-height: var(--dice-side-length);
+    font-weight: bold;
+    font-size: 3rem;
+    cursor: pointer;
+    background-color: var(--main-bg);
+    border: 6px solid var(--main-pink);
+    color: var(--main-pink);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dice-issaved-icon{
+    position: absolute;
+    top:0;
+    left:0;
+    transform: translate(-50%, -50%);
+    background-color: var(--main-bg);
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1 !important
+}
+
+.dice-saved {
+    opacity: 0.5;
+}
+
+.dice-comboed{
+    box-shadow: 0px 0px 10px var(--main-pink);
+    scale: 115%;
+    transition: all 0.4s ease;
+}
+
+.turns-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-grey);
+    width: auto;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 30px 0px;
+    gap: 8px;
+}
+
+.turns-text{
+    color: var(--main-black);
+    font-weight: normal;
+    font-size: 1.3rem;
+}
+
+.turns-number{
+    color: var(--main-dark-blue);
+    font-weight: bold;
+    font-size: 2.2rem;
+}
+
+.game-interface{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.game-interface button{
+    background-color: var(--main-dark-blue);
+    color: var(--main-bg);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.combo-text{
+    display: block;
+}
