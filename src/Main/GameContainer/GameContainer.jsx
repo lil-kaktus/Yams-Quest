@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import Dice from './Dice/Dice';
 
@@ -14,6 +14,8 @@ export default function GameContainer() {
     const [dices, setDices] = useState([])
     const [turns, setTurns] = useState(ROLLS)
     const [combo, setCombo] = useState()
+    const [score, setScore] = useState(0)
+    const isHandSubmittedByClick = useRef(false)
 
     function setDefaultDices() {
         setDices([])
@@ -34,8 +36,9 @@ export default function GameContainer() {
     }, [])
 
     useEffect(() => {
-        if (turns == 0) {
-            playHand()
+        if (turns == 0 && !isHandSubmittedByClick.current) {
+            console.log("render after useEffect", isHandSubmittedByClick.current)
+            playHand() //let the player see the final dices
         }
     }, [turns])
 
@@ -77,15 +80,18 @@ export default function GameContainer() {
 
     function playHand() {
 
-        const {name, points, newDices} = checkCombos(dices)
+        const { name, points, newDices } = checkCombos(dices)
+
+        setScore(prevScore => prevScore + points)
 
         setTurns(0)
-        setCombo({name, points})
+        setCombo({ name, points })
         setDices(newDices)
         lockEveryDice(false)
     }
 
-    function restartGame(){
+    function restartGame() {
+        isHandSubmittedByClick.current = false
         setDefaultDices()
         setTurns(ROLLS)
         setCombo()
@@ -96,9 +102,17 @@ export default function GameContainer() {
             <div className='dices-container'>
                 {dices.map(dice => <Dice key={dice.id} dice={dice} toggleSavedDice={toggleSavedDice} />)}
             </div>
-            <div className="turns-container">
-                <span className="turns-text">Remaining rolls : </span>
-                <span className="turns-number">{turns}</span>
+            <div className="table-stats-container">
+                <div className="table-container">
+                    <span className="table-text">Remaining rolls : </span>
+                    <span className="turns-number">{turns}</span>
+                </div>
+                <div className="score-container">
+                    <span className="score-number">{score}</span>
+                </div>
+            </div>
+            <div className="combo-container">
+                <span className="combo-text">{combo && `${combo.name} (${combo.points}pts)`}</span>
             </div>
         </div>
         <div className='game-interface'>
@@ -108,7 +122,7 @@ export default function GameContainer() {
                 >{turns === ROLLS ? "Roll" : "Reroll"}
                 </button>
                 {turns < ROLLS && <button className="play-hand-button"
-                    onClick={() => playHand()}>
+                    onClick={() => { isHandSubmittedByClick.current = true; playHand() }}>
                     Play hand
                 </button>}</>
                 :
@@ -117,8 +131,5 @@ export default function GameContainer() {
                     Play again
                 </button>}
         </div>
-        {combo && <div className="combo-container">
-            <span className="combo-text">{combo.name} ({combo.points}pts)</span>
-        </div>}
     </div>)
 }

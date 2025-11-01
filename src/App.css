@@ -6,7 +6,7 @@
     --main-dark-blue: #0c38a8;
     --main-orange: #e89518;
 
-    --gradient: linear-gradient(to right, var(--main-pink), var(--main-dark-blue));
+    --gradient: linear-gradient(to right, var(--main-orange), var(--main-pink), var(--main-dark-blue));
 
     --dice-side-length: 130px;
 }
@@ -35,14 +35,14 @@ body {
     font-weight: bold;
 }
 
-.game-container{
+.game-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.game-table{
+.game-table {
     padding: 70px 0px 10px;
     width: 100%;
     display: flex;
@@ -71,15 +71,15 @@ body {
     background-color: var(--main-bg);
     border: 6px solid var(--main-pink);
     color: var(--main-pink);
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.dice-issaved-icon{
+.dice-issaved-icon {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     transform: translate(-50%, -50%);
     background-color: var(--main-bg);
     width: 50px;
@@ -95,44 +95,68 @@ body {
     opacity: 0.5;
 }
 
-.dice-comboed{
+.dice-comboed {
     box-shadow: 0px 0px 10px var(--main-pink);
     scale: 115%;
     transition: all 0.4s ease;
 }
 
-.turns-container{
+.table-stats-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--main-grey);
+    gap: 15px;
+}
+
+.table-stats-container div {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: auto;
     padding: 5px 10px;
     border-radius: 10px;
-    margin: 30px 0px;
+    margin: 40px 0px 20px;
     gap: 8px;
 }
 
-.turns-text{
+.table-container {
+    background-color: var(--main-grey);
+}
+
+.table-text {
     color: var(--main-black);
-    font-weight: normal;
+    font-weight: bold;
     font-size: 1.3rem;
 }
 
-.turns-number{
+.turns-number {
     color: var(--main-dark-blue);
     font-weight: bold;
-    font-size: 2.2rem;
+    font-size: 2rem;
 }
 
-.game-interface{
+.score-container{
+    border: 5px solid var(--main-orange);
+    box-shadow: 0px 0px 5px var(--main-orange);
+    border-radius: 30px;
+    padding: 5px 10px
+}
+
+.score-number {
+    color: var(--main-orange);
+    text-shadow: 0px 0px 10px white;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.game-interface {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
 
-.game-interface button{
+.game-interface button {
     background-color: var(--main-dark-blue);
     color: var(--main-bg);
     border: none;
@@ -141,8 +165,21 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
+    transition: opacity 0.3s ease
 }
 
-.combo-text{
-    display: block;
+.game-interface button:hover {
+    opacity: 0.9;
+}
+
+.combo-container {
+    margin: 25px;
+}
+
+.combo-text {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--main-orange);
+    text-shadow: 0px 0px 5px var(var(--main-orange));
+    transition: all 0.3s ease;
 }

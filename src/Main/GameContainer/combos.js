@@ -6,6 +6,15 @@ class Combo {
     }
 }
 
+/* here, the method is the following :
+    - initiate new Combos objects with their own names, points, and checking functions
+    - iterate over every combo from strongest to weakest ;
+      if its function returns true (e.g. an array of new dices) it breaks and directly returns it,
+      because we want the player to score the highest amount of points possible so it's
+      pointless to check every weaker combo once a stronger one was found
+    - if no comob was found, the default combo is to check the strongest dice value scored (so at least 3 with 5 dices)
+*/
+
 function checkSameValues(dices, n) {
 
     let nums = extractValues(dices)
@@ -88,7 +97,6 @@ function isFullHouse(dices) {
     if (availableValues.length !== 2) return false
 
     if(checkSameValues(dices, 3) && checkSameValues(dices, 2)){
-        console.log("full house evaluated to true")
         return getEveryDiceComboed(dices)
     }
     else{
@@ -134,14 +142,23 @@ export default function checkCombos(dices) {
     if (isAllNums) {
         for (const combo of combos) {
             const returnedCombo = combo.func()
-            if (returnedCombo) {
+            if (returnedCombo) { //when the combo.func() returns the new dice array it's evaluated as true bc it means that the combo was successfull
                 return { name: combo.name, points: combo.points, newDices: returnedCombo}
             }
         }
 
-        let values = extractValues(dices)
-        const highestValue = values[values.length - 1]
-        return { name: "One Man Army", points: highestValue, newDices: dices.map(dice => (dice.value == highestValue ? {...dice, comboed: true} : dice))}
+        const values = extractValues(dices),
+        highestValue = values[values.length - 1]
+        
+        let finalDices = dices
+
+        for(let i = 0; i < finalDices.length; i++){
+            if(finalDices[i].value === highestValue){
+                finalDices[i] = {...finalDices[i], comboed: true}; //only mark the first biggest value encountered as "comboed"
+                break;
+            }
+        }
+        return { name: "One Man Army", points: highestValue, newDices: finalDices} //default combo if none was found
     }
 
     return null
